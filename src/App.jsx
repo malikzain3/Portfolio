@@ -7,7 +7,6 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import AWSEvents  from './components/AWSEvent'
 
 
 function App() {
@@ -33,7 +32,6 @@ function App() {
         <About />
         <Skills />
         <Experience />
-        <AWSEvents />
         <Projects />
         <Contact />
       </main>
