@@ -118,17 +118,17 @@ export default function Experience() {
                     className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 border border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 group"
                   >
                     {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center shadow-lg`}>
+                    <div className="flex items-start justify-between gap-3 mb-4">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className={`w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center shadow-lg`}>
                           <Briefcase size={20} className="text-white" />
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <h3 className="text-lg font-bold text-gray-900 dark:text-white">{exp.role}</h3>
                           <p className="text-indigo-500 dark:text-indigo-400 font-semibold text-sm">{exp.company}</p>
                         </div>
                       </div>
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${exp.color} text-white`}>
+                      <span className={`ml-2 px-2 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${exp.color} text-white whitespace-nowrap shrink-0`}>
                         {exp.type}
                       </span>
                     </div>
