@@ -20,8 +20,8 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-sm text-gray-400 dark:text-gray-500 flex items-center gap-1.5">
-            Built with{' '}
-            <Heart size={12} className="text-red-400 fill-red-400" />
+            Developed{' '}
+            
             {' '}by{' '}
             <span className="font-semibold text-gray-600 dark:text-gray-400">Muhammad Zain ul Abdin</span>
             {' '}· {new Date().getFullYear()}
