@@ -209,7 +209,7 @@ export default function Hero() {
               />
 
               {/* Floating badge — left */}
-              <motion.div
+              {/* <motion.div
                 variants={badgeLeft}
                 initial="hidden"
                 animate="visible"
@@ -218,10 +218,10 @@ export default function Hero() {
               >
                 <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">Open to work</span>
-              </motion.div>
+              </motion.div> */}
 
               {/* Floating badge — right */}
-              <motion.div
+              {/* <motion.div
                 variants={badgeRight}
                 initial="hidden"
                 animate="visible"
@@ -229,7 +229,7 @@ export default function Hero() {
                 className="absolute -right-6 bottom-1/4 bg-white dark:bg-gray-900 rounded-xl px-3 py-2 shadow-xl border border-gray-100 dark:border-gray-800"
               >
                 <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">⚡ MERN Stack</span>
-              </motion.div>
+              </motion.div> */}
             </div>
           </motion.div>
         </div>
