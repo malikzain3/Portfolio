@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://sitemaps.org"
-        xmlns:xsi="http://w3.org"
-        xsi:schemaLocation="http://sitemaps.org
-        http://sitemaps.org/sitemap.xsd">
+<urlset xmlns="http://sitemaps.org">
   <url>
     <loc>https://zainulabdin.me</loc>
-    <lastmod>2026-06-30</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 </urlset>
