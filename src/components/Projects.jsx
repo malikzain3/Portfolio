@@ -49,7 +49,7 @@ const projects = [
     description: 'A dynamic web application built with Firebase — Jump App delivers a fast, interactive user experience with real-time features. Deployed on Firebase Hosting for reliable, scalable performance.',
     link:        'https://jump-6c215.web.app/home',
     image:       '/jump.png',
-    tags:        ['React', 'Firebase', 'JavaScript', 'Tailwind CSS'],
+    tags:        ['Angular', 'Firebase', 'JavaScript', 'Tailwind CSS'],
     gradient:    'from-indigo-500 to-purple-600',
     glowColor:   'rgba(99,102,241,0.35)',
     badgeBg:     'bg-indigo-50 dark:bg-indigo-500/10',

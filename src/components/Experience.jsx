@@ -124,7 +124,7 @@ export default function Experience() {
                           <Briefcase size={20} className="text-white" />
                         </div>
                         <div className="min-w-0">
-                          <h3 className="text-lg font-bold text-gray-900 dark:text-white">{exp.role}</h3>
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.role}</h3>
                           <p className="text-indigo-500 dark:text-indigo-400 font-semibold text-sm">{exp.company}</p>
                         </div>
                       </div>
