@@ -231,12 +231,14 @@ export default function Hero() {
               </div>
 
               {/* Photo */}
-              <div className="absolute inset-2 rounded-full overflow-hidden float-animation" style={{ transform: 'translateZ(40px)' }}>
-                <img
-                  src={profileImg}
-                  alt="Muhammad Zain ul Abdin"
-                  className="w-full h-full object-cover"
-                />
+              <div className="absolute inset-2 rounded-full float-animation" style={{ transformStyle: 'preserve-3d' }}>
+                <div className="w-full h-full rounded-full overflow-hidden" style={{ transform: 'translateZ(40px)' }}>
+                  <img
+                    src={profileImg}
+                    alt="Muhammad Zain ul Abdin"
+                    className="w-full h-full object-cover scale-110"
+                  />
+                </div>
               </div>
 
               {/* Rotating dashed ring */}
