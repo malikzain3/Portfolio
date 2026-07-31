@@ -1,6 +1,7 @@
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import gsap from 'gsap';
 
 // ── Header stagger ──
 const headerStagger = {
@@ -73,7 +74,7 @@ const skills = [
     ),
   },
   {
-    name: 'Node.js', level: 70,
+    name: 'Node.js', level: 20,
     color: 'from-green-500 to-emerald-500',
     bg: 'bg-green-50 dark:bg-green-500/10',
     border: 'border-green-200 dark:border-green-500/30',
@@ -86,7 +87,7 @@ const skills = [
     ),
   },
   {
-    name: 'C++', level: 80,
+    name: 'C++', level: 50,
     color: 'from-blue-600 to-indigo-600',
     bg: 'bg-blue-50 dark:bg-blue-500/10',
     border: 'border-blue-200 dark:border-blue-500/30',
@@ -170,6 +171,90 @@ const skills = [
 
 const tools = ['Git', 'GitHub', 'VS Code', 'Figma', 'REST APIs', 'MongoDB', 'Express.js', 'Responsive Design'];
 
+function SkillCard({ skill, skillCard, isInView }) {
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const handleMouseMove = (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      const rotateX = -(y / (rect.height / 2)) * 10; // max 10 degrees
+      const rotateY = (x / (rect.width / 2)) * 10;
+
+      gsap.to(card, {
+        rotateX: rotateX,
+        rotateY: rotateY,
+        transformPerspective: 600,
+        ease: 'power2.out',
+        duration: 0.3,
+        overwrite: 'auto'
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(card, {
+        rotateX: 0,
+        rotateY: 0,
+        ease: 'power2.out',
+        duration: 0.5,
+        overwrite: 'auto'
+      });
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      variants={skillCard}
+      whileHover={{
+        scale: 1.05,
+        y: -5,
+        transition: { type: 'spring', stiffness: 350, damping: 18 },
+      }}
+      whileTap={{ scale: 0.95 }}
+      className={`relative group flex flex-col items-center gap-3 p-5 rounded-2xl border ${skill.bg} ${skill.border} cursor-default`}
+      style={{ transformStyle: 'preserve-3d' }}
+    >
+      {/* Glow overlay on hover */}
+      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+
+      <div className="relative z-10" style={{ transform: 'translateZ(12px)' }}>{skill.icon}</div>
+
+      <span className={`relative z-10 text-sm font-bold ${skill.text}`} style={{ transform: 'translateZ(12px)' }}>
+        {skill.name}
+      </span>
+
+      {/* Animated progress bar */}
+      <div className="relative z-10 w-full" style={{ transform: 'translateZ(12px)' }}>
+        <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
+            transition={{ duration: 1.1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
+          />
+        </div>
+        <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 block text-right">
+          {skill.level}%
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -212,41 +297,7 @@ export default function Skills() {
           className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-16"
         >
           {skills.map((skill) => (
-            <motion.div
-              key={skill.name}
-              variants={skillCard}
-              whileHover={{
-                scale: 1.08,
-                y: -7,
-                transition: { type: 'spring', stiffness: 350, damping: 18 },
-              }}
-              whileTap={{ scale: 0.95 }}
-              className={`relative group flex flex-col items-center gap-3 p-5 rounded-2xl border ${skill.bg} ${skill.border} cursor-default`}
-            >
-              {/* Glow overlay on hover */}
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-
-              <div className="relative z-10">{skill.icon}</div>
-
-              <span className={`relative z-10 text-sm font-bold ${skill.text}`}>
-                {skill.name}
-              </span>
-
-              {/* Animated progress bar */}
-              <div className="relative z-10 w-full">
-                <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                    transition={{ duration: 1.1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
-                  />
-                </div>
-                <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 block text-right">
-                  {skill.level}%
-                </span>
-              </div>
-            </motion.div>
+            <SkillCard key={skill.name} skill={skill} skillCard={skillCard} isInView={isInView} />
           ))}
         </motion.div>
 

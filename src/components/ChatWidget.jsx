@@ -28,15 +28,29 @@ export default function ChatWidget() {
   const messagesEndRef = useRef(null);
 
   // Auto scroll to bottom
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottom = (behavior = 'smooth') => {
+    messagesEndRef.current?.scrollIntoView({ behavior });
   };
 
   useEffect(() => {
     if (isOpen) {
-      setTimeout(scrollToBottom, 100);
+      // Use auto scroll (instant) when first opened to prevent layout fighting with CSS transition,
+      // and smooth scroll for subsequent new messages.
+      const timer = setTimeout(() => {
+        scrollToBottom('auto');
+      }, 100);
+      return () => clearTimeout(timer);
     }
-  }, [messages, isOpen, isTyping]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen && messages.length > 1) {
+      const timer = setTimeout(() => {
+        scrollToBottom('smooth');
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [messages, isTyping, isOpen]);
 
   // Ref to generate stable message IDs
   const msgIdRef = useRef(10);
@@ -73,147 +87,258 @@ export default function ChatWidget() {
   };
 
   const getAIResponse = (query) => {
-    const q = query.toLowerCase();
+    const q = query.toLowerCase().trim();
 
-    // 1. Projects
-    if (
-      q.includes('project') ||
-      q.includes('built') ||
-      q.includes('portfolio') ||
-      q.includes('app') ||
-      q.includes('al-hashmi') ||
-      q.includes('ambulance') ||
-      q.includes('jump')
-    ) {
-      return `Zain has built some impressive, real-world featured projects:
+    // Helper functions for matching
+    const matchesAny = (words) => words.some(word => q.includes(word));
+
+    // 1. IIUI / Islamic International University Islamabad
+    if (matchesAny(['iiui', 'islamic international', 'international islamic', 'where does he study', 'where is he studying', 'what is iiui', 'university', 'undergrad', 'degree', 'studies', 'college', 'qualification'])) {
+      return `Zain studies at **Islamic International University Islamabad (IIUI)**. 🎓
+
+**Islamic International University Islamabad (IIUI)** is a prestigious public research university located in Islamabad, Pakistan. Established in 1980, it is a center of higher education blending modern science and technology with Islamic perspectives and values.
+
+Zain is currently in his **5th Semester** pursuing a **Bachelor of Science in Software Engineering** here. His curriculum includes:
+• Software Engineering Principles & Practices
+• Object-Oriented Programming & Data Structures
+• Web Engineering & Database Systems
+• Agile Methodologies & Project Management
+
+His academic experience at IIUI has provided him with a strong foundation in computer science theory, collaborative software development, and modern system architectures.
+
+*What would you like to know next?*
+• Ask about his **tech stack** or specific skills like **React** or **Angular**.
+• Ask about his **work experience** at SENSE IIUI and Taqsoft.
+• Ask about his featured **projects** like Al-Hashmi Ambulance or Jump App.`;
+    }
+
+    // 2. Skill Specific Explanations (React, Node.js, Angular, C++, HTML/CSS, Tailwind)
+    if (matchesAny(['react', 'what is react', 'reactjs', 'react.js'])) {
+      return `**React & Zain's Expertise** ⚡
+
+**What is React?**
+In simple, plain-language: React is an open-source JavaScript library developed by Meta (Facebook) used for building interactive and dynamic user interfaces (UIs) for websites and web apps. Instead of reloading the whole page when something changes, React only updates the specific parts of the page that changed (using a 'Virtual DOM'), making websites load incredibly fast. It operates on a "component-based" architecture, meaning developers build small, reusable blocks (like a button, search bar, or profile card) and combine them to create large applications.
+
+**Zain's Usage:**
+• Zain has **85% proficiency** in React and uses it as his primary library for frontend development.
+• He leverages React Hooks, state management, and modern component architectural patterns to build smooth, ultra-fast web interfaces.
+• He is currently building projects like this portfolio site using React!
+
+*What would you like to explore next?*
+• Ask about other skills like **Angular**, **Node.js**, or **C++**.
+• Ask about his **projects** where he applied his React skills.
+• Ask how to **contact** him.`;
+    }
+
+    if (matchesAny(['angular', 'what is angular', 'angularjs'])) {
+      return `**Angular & Zain's Expertise** 🅰️
+
+**What is Angular?**
+In simple terms: Angular is a comprehensive web development framework developed by Google. Unlike React (which is a flexible library), Angular is a complete "opinionated" framework that comes with all the built-in tools a developer needs, such as routing (navigating between pages), form handling, and talking to servers. It is written in TypeScript (a safer version of JavaScript) and is highly popular for building massive, secure, and robust enterprise-grade web applications.
+
+**Zain's Usage:**
+• Zain has **75% proficiency** in Angular.
+• During his internship at Taqsoft, he worked as a Frontend Web Developer building client-facing web applications using Angular.
+• He integrated RESTful APIs and handled asynchronous data flows to deliver scalable, dynamic frontend experiences.
+
+*Where should we go from here?*
+• Ask about his other skills like **React** or **Tailwind CSS**.
+• Ask about his **work experience** at Taqsoft.
+• Ask about his **projects** like Jump App, which uses Angular!`;
+    }
+
+    if (matchesAny(['node', 'nodejs', 'node.js', 'what is node'])) {
+      return `**Node.js & Zain's Expertise** 🟢
+
+**What is Node.js?**
+In simple, plain language: Historically, JavaScript only ran inside web browsers (like Chrome or Safari) to make web pages interactive. Node.js is a "runtime environment" that allows developers to run JavaScript directly on their computer or server, outside of a web browser. This means developers can write server-side code (databases, APIs, user authentication, file systems) using the exact same language they use for the frontend.
+
+**Zain's Usage:**
+• Zain has **20% proficiency** in Node.js.
+• He is currently expanding his tech stack into full-fledged **MERN Stack Development** (MongoDB, Express, React, Node.js) to bridge the gap between frontend beauty and robust backend server logic.
+
+*What would you like to check next?*
+• Ask about his core frontend skills like **React** or **JavaScript**.
+• Ask about his **education** at IIUI.
+• Ask about his featured **projects**.`;
+    }
+
+    if (matchesAny(['c++', 'cpp', 'c plus plus', 'what is c++'])) {
+      return `**C++ & Zain's Expertise** 🔵
+
+**What is C++?**
+In simple terms: C++ is a powerful, extremely fast, compile-based programming language. It is one of the most widely used systems programming languages, providing fine-grained control over computer memory and system resources. It is the language of choice for performance-critical applications, including operating systems, 3D game engines, graphics engines, and competitive programming.
+
+**Zain's Usage:**
+• Zain has **50% proficiency** in C++.
+• He developed a solid foundation in programming logic, Object-Oriented Programming (OOP) principles, and basic data structures using C++ during his early coursework at IIUI.
+
+*What would you like to know next?*
+• Ask about his modern web skills like **React** or **Tailwind CSS**.
+• Ask about his **education** at IIUI.
+• Ask about his **projects**.`;
+    }
+
+    if (matchesAny(['tailwind', 'bootstrap', 'css', 'html', 'what is tailwind', 'what is css'])) {
+      return `**Styling & Markup (HTML, CSS, Tailwind, Bootstrap) 🎨**
+
+**What are these?**
+• **HTML5 (95% proficiency):** The skeletal structure of every webpage. It defines what elements go where (headings, paragraphs, images).
+• **CSS3 (92% proficiency):** The styling language that makes websites look beautiful (colors, layout, spacing, animations).
+• **Tailwind CSS (88% proficiency):** A utility-first CSS framework. Instead of writing custom CSS files, Tailwind lets developers style elements directly inside HTML using predefined class names, making responsive design and prototyping extremely fast and consistent.
+• **Bootstrap (85% proficiency):** A popular responsive UI toolkit developed by Twitter that provides pre-built responsive layout systems and components.
+
+**Zain's Usage:**
+• Zain uses Tailwind CSS and Bootstrap to design modern, pixel-perfect, and fully responsive layouts that adapt beautifully across mobile devices, tablets, and desktops.
+
+*What would you like to know next?*
+• Ask about his interactive web framework skills: **React** or **Angular**.
+• Ask about his **projects** like Al-Hashmi Ambulance, which was custom built with CSS/JS.
+• Ask about his **experience** at SENSE IIUI.`;
+    }
+
+    if (matchesAny(['javascript', 'js', 'what is javascript', 'what is js'])) {
+      return `**JavaScript & Zain's Expertise** 💛
+
+**What is JavaScript?**
+In simple terms: JavaScript is the programming language of the web. While HTML structures a page and CSS styles it, JavaScript brings it to life. It handles animations, user interactions, click events, fetches data from servers, and updates content on-the-fly without needing a full page reload.
+
+**Zain's Usage:**
+• Zain has **88% proficiency** in modern JavaScript (ES6+).
+• It is the core language powering his entire frontend framework stack, including React and Angular.
+
+*What would you like to see next?*
+• Ask about his projects built with JavaScript like **Jump App** or **Al-Hashmi Ambulance**.
+• Ask about his **work experience**.
+• Ask how to **contact** him.`;
+    }
+
+    // 3. General Skills / Tech Stack
+    if (matchesAny(['skill', 'tech', 'language', 'code', 'know', 'framework', 'tool', 'stack', 'mongodb', 'express', 'mern'])) {
+      return `Zain is a highly skilled Frontend Developer expanding into full-stack **MERN Development**:
+
+⚡ **Core Technologies & Proficiency:**
+• **JavaScript** (88%) - Zain's core programming language.
+• **React** (85%) - His primary library for interactive frontend interfaces.
+• **HTML5 / CSS3** (95% / 92%) - Markup and custom styling foundations.
+• **Tailwind CSS** (88%) - For rapid, modern, utility-first CSS design.
+• **Bootstrap** (85%) - Used for responsive grids and flexible UI components.
+• **WordPress** (78%) - Experience with custom CMS design and editing.
+• **Angular** (75%) - Experience building client-side enterprise apps.
+• **C++** (50%) - Foundations in programming logic and computer science.
+• **Node.js** (20%) - Expanding server-side capability.
+
+🛠️ **Tools & Practices:**
+Git, GitHub, VS Code, REST APIs, MongoDB, Express.js, Figma, Responsive Web Design.
+
+*What would you like to learn more about?*
+• Ask about a specific skill, e.g., **"What is React?"** or **"What is Angular?"** for a plain-language breakdown.
+• Ask about his **projects** like Al-Hashmi Ambulance or Jump App.
+• Ask about his **work experience** at Taqsoft or SENSE IIUI.`;
+    }
+
+    // 4. Projects
+    if (matchesAny(['project', 'built', 'portfolio', 'app', 'al-hashmi', 'ambulance', 'jump', 'work-sample', 'showcase'])) {
+      return `Zain has designed and deployed high-performance, real-world web projects:
 
 🚨 **Al-Hashmi Ambulance**
-• A professional web presence for a healthcare emergency platform.
-• Built with: **HTML, CSS, JavaScript, Responsive Design**.
+• A professional web presence for a healthcare emergency platform designed to provide quick access to medical transport.
+• **Built with:** HTML5, CSS3, JavaScript, Responsive Design.
+• Highly optimized for rapid loading and clean mobile user experience.
 • [View Live Website](http://alhashmiambulance.fwh.is)
 
 🎮 **Jump App**
-• A fast, interactive web application with real-time features.
-• Built with: **Angular, Firebase, Tailwind CSS, JavaScript**.
-• Deployed securely on Firebase Hosting.
-• [View Live Web App](https://jump-6c215.web.app/home)`;
+• A fast, interactive web application featuring real-time data handling and hosting.
+• **Built with:** Angular, Firebase, Tailwind CSS, JavaScript.
+• Deployed securely on Firebase Hosting for reliability.
+• [View Live Web App](https://jump-6c215.web.app/home)
+
+*What would you like to know next?*
+• Ask about the **tech stack** used to build these (React, Angular, Tailwind).
+• Ask about Zain's **work experience** where he built commercial products.
+• Ask how to **contact** him.`;
     }
 
-    // 2. Skills
-    if (
-      q.includes('skill') ||
-      q.includes('tech') ||
-      q.includes('language') ||
-      q.includes('code') ||
-      q.includes('know') ||
-      q.includes('framework') ||
-      q.includes('react') ||
-      q.includes('angular') ||
-      q.includes('js')
-    ) {
-      return `Zain has strong expertise in modern web development:
-
-⚡ **Core Technologies:**
-• **React** (85% proficiency)
-• **JavaScript** (88% proficiency)
-• **Angular** (75% proficiency)
-• **Node.js** (70% proficiency)
-• **C++** (80% proficiency)
-• **Tailwind CSS** (88% proficiency)
-• **CSS3** (92% proficiency)
-• **HTML5** (95% proficiency)
-
-🛠️ **Familiar Tools & Practices:**
-• Git, GitHub, REST APIs, MongoDB, Express.js, VS Code, Figma, Responsive Design.`;
-    }
-
-    // 3. Experience
-    if (
-      q.includes('experience') ||
-      q.includes('work') ||
-      q.includes('job') ||
-      q.includes('intern') ||
-      q.includes('career') ||
-      q.includes('sense') ||
-      q.includes('taqsoft')
-    ) {
-      return `Zain has hands-on experience in software development environments:
+    // 5. Work Experience
+    if (matchesAny(['experience', 'work', 'job', 'intern', 'career', 'sense', 'taqsoft', 'history', 'professional', 'part-time'])) {
+      return `Zain has strong professional and community experience in software environments:
 
 💼 **Part-Time Web Developer at SENSE IIUI** (2025 – Present)
-• Contributing to Software Engineering Society platforms.
-• Building responsive UI components with **React & Tailwind CSS**.
-• Optimizing web page performance and load times.
+• Contributing to Software Engineering Society (SENSE) official web presence.
+• Building responsive, elegant UI components using **React & Tailwind CSS**.
+• Collaborating with design teams and optimizing web asset performance.
 
 🏢 **Frontend Developer Intern at Taqsoft** (2025)
 • Developed dynamic client-facing web applications using the **Angular** framework.
-• Implemented elegant designs with Bootstrap & custom CSS.
-• Integrated RESTful APIs and participated in agile development sprints.`;
+• Designed responsive layouts with Bootstrap and customized stylesheets.
+• Integrated RESTful APIs and participated in agile team sprints to deliver features.
+
+*Would you like to explore further?*
+• Ask about his **education** at IIUI.
+• Ask about his **skills** or specific tech explanations.
+• Ask about his **projects**.`;
     }
 
-    // 4. Contact
-    if (
-      q.includes('contact') ||
-      q.includes('email') ||
-      q.includes('reach') ||
-      q.includes('hire') ||
-      q.includes('social') ||
-      q.includes('github') ||
-      q.includes('linkedin') ||
-      q.includes('phone') ||
-      q.includes('location') ||
-      q.includes('address')
-    ) {
-      return `You can easily reach out to Zain through any of these channels:
+    // 6. Contact, Socials, Resume
+    if (matchesAny(['contact', 'email', 'reach', 'hire', 'social', 'github', 'linkedin', 'phone', 'location', 'address', 'resume', 'cv'])) {
+      return `You can easily connect with Zain or download his credentials:
 
 📬 **Email:** [zainmalik84466@gmail.com](mailto:zainmalik84466@gmail.com)
 📍 **Location:** Islamabad, Pakistan
-🕒 **Availability:** Mon – Fri, 9am – 6pm PKT
+🕒 **Availability:** Monday – Friday, 9:00 AM – 6:00 PM PKT
+📄 **Resume:** [Download Resume](/Zain_Resume.pdf)
 
 🌐 **Connect Online:**
 • **GitHub:** [malikzain3](https://github.com/malikzain3)
 • **LinkedIn:** [Muhammad Zain ul Abdin](https://www.linkedin.com/in/muhammad-zain-ul-abdin-7a5868386)
-• **Twitter/X:** [@malik_zain1212](https://x.com/malik_zain1212)`;
+• **Twitter/X:** [@malik_zain1212](https://x.com/malik_zain1212)
+
+*What can I help you with next?*
+• Ask about his **education** or his university, **IIUI**.
+• Ask about his **skills** or **projects**.`;
     }
 
-    // 5. About Me / Bio / Education
-    if (
-      q.includes('about') ||
-      q.includes('who is') ||
-      q.includes('zain') ||
-      q.includes('education') ||
-      q.includes('university') ||
-      q.includes('iiui') ||
-      q.includes('student') ||
-      q.includes('resume') ||
-      q.includes('degree')
-    ) {
-      return `**Muhammad Zain ul Abdin** is a dedicated Frontend Web Developer and a **4th Semester Software Engineering student** at **IIUI** (International Islamic University Islamabad), based in Islamabad, Pakistan.
+    // 7. Greetings
+    if (matchesAny(['hello', 'hi', 'hey', 'greetings', 'morning', 'afternoon', 'evening', 'yo', 'sup'])) {
+      return `Hello! 😊 Nice to meet you. I'm Zain's smart AI assistant.
 
-He is highly passionate about building clean, responsive, and user-friendly web interfaces. Currently, he is expanding his stack into full-fledged **MERN Stack Development** (MongoDB, Express, React, Node.js) to bridge the gap between frontend beauty and backend power!`;
+I can tell you all about:
+• His **education** at **IIUI** (Islamic International University Islamabad)
+• Plain-language explanations of his skills like **React**, **Angular**, **Node.js**, **C++**, and **Tailwind CSS**
+• His professional **experience** at SENSE IIUI and Taqsoft
+• Detailed breakdowns of his **projects** and how to **contact** him.
+
+What would you like to explore first?`;
     }
 
-    // 6. Greetings
-    if (
-      q.includes('hello') ||
-      q.includes('hi') ||
-      q.includes('hey') ||
-      q.includes('greetings') ||
-      q.includes('good morning') ||
-      q.includes('good afternoon')
-    ) {
-      return `Hello! 😊 Nice to meet you. I'm here to answer any questions about Zain's skills, portfolio, experience, or projects. What would you like to know?`;
+    // 8. Thank you / Bye
+    if (matchesAny(['bye', 'goodbye', 'thanks', 'thank you', 'awesome', 'great', 'cool'])) {
+      return `You're very welcome! 😊 If you have any more questions about Zain's background, skills, projects, or availability, just let me know. Have a wonderful day!`;
     }
 
-    // 7. Fallback
+    // 9. About Zain / General Info / Biography
+    if (matchesAny(['about', 'who is', 'zain', 'background', 'bio', 'story', 'developer'])) {
+      return `**Muhammad Zain ul Abdin** is a dedicated Frontend Web Developer and a **5th Semester Software Engineering student** at **IIUI** (International Islamic University Islamabad), based in Islamabad, Pakistan.
+
+He is highly passionate about building clean, responsive, and user-friendly web interfaces. Currently, he is expanding his stack into full-fledged **MERN Stack Development** (MongoDB, Express, React, Node.js) to bridge the gap between frontend beauty and backend power!
+
+*What would you like to see?*
+• Ask about his **education** at **IIUI**.
+• Ask about his **experience** at SENSE IIUI and Taqsoft.
+• Ask about his **projects** like Jump App or Al-Hashmi Ambulance.`;
+    }
+
+    // 10. Fallback
     return `I'm not sure I fully understand that question. 😅
 
 But here is what I can tell you about Zain:
-• **Skills:** React, JavaScript, Angular, Node.js, C++, Tailwind CSS.
+• **Education:** BS Software Engineering (5th Semester) at IIUI.
+• **Skills:** React, JavaScript, Angular, Tailwind CSS, Bootstrap, Node.js (20%), C++ (50%).
 • **Projects:** Al-Hashmi Ambulance, Jump App.
-• **Experience:** Developer at SENSE IIUI, former intern at Taqsoft.
+• **Experience:** Web Developer at SENSE IIUI, former intern at Taqsoft.
 • **Contact:** Email, LinkedIn, GitHub.
 
-Feel free to use one of the quick suggestions below! 👇`;
+Feel free to ask a specific question, or click one of the quick suggestions below! 👇`;
   };
 
   return (
@@ -225,7 +350,7 @@ Feel free to use one of the quick suggestions below! 👇`;
             initial={{ opacity: 0, y: 32, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 32, scale: 0.92 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+            transition={{ type: 'tween', ease: 'easeOut', duration: 0.25 }}
             className="w-[calc(100vw-2.5rem)] sm:w-96 h-[520px] max-h-[calc(100vh-8rem)] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 flex flex-col overflow-hidden mb-4"
           >
             {/* Header */}

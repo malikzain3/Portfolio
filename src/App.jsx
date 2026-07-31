@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import ChatWidget from './components/ChatWidget';
+
+const About = lazy(() => import('./components/About'));
+const Skills = lazy(() => import('./components/Skills'));
+const Experience = lazy(() => import('./components/Experience'));
+const Projects = lazy(() => import('./components/Projects'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+const ChatWidget = lazy(() => import('./components/ChatWidget'));
 
 
 function App() {
@@ -30,14 +31,18 @@ function App() {
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Contact />
+        <Suspense fallback={null}>
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
-      <ChatWidget />
+      <Suspense fallback={null}>
+        <Footer />
+        <ChatWidget />
+      </Suspense>
     </div>
   );
 }
