@@ -151,11 +151,14 @@ function ProjectCard({ project, cardVariant }) {
           whileHover={{ opacity: 1 }}
           className="absolute inset-0 flex items-center justify-center bg-black/20"
         >
-          <div className={`flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${project.gradient} text-white font-semibold text-sm shadow-xl`}>
-            <Globe size={15} />
-            View Live
-            <ArrowUpRight size={14} />
-          </div>
+         <a 
+    href={project.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${project.gradient} text-white font-semibold text-sm shadow-xl transition-transform hover:scale-105 active:scale-95`}
+  >
+    <Globe size={15} /> View Live <ArrowUpRight size={14} />
+  </a>
         </motion.div>
       </div>
 
