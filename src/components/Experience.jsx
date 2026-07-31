@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Briefcase, Calendar, MapPin, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, CheckCircle2 } from 'lucide-react';
 
 const fadeUp = {
   hidden:  { opacity: 0, y: 36 },

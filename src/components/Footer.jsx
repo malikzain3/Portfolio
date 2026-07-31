@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Code2, Heart, GitBranch, Link, Mail, ArrowUp } from 'lucide-react';
+import { Code2, GitBranch, Link, Mail, ArrowUp } from 'lucide-react';
 
 export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });

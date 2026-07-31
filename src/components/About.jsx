@@ -3,16 +3,6 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { GraduationCap, MapPin, Calendar, Heart, Code, Zap } from 'lucide-react';
 
-// ── Shared scroll-reveal variants (used across all sections) ──
-const sectionReveal = {
-  hidden:  { opacity: 0, y: 48 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 const stagger = {
   hidden:  {},
   visible: { transition: { staggerChildren: 0.13, delayChildren: 0.15 } },
@@ -109,7 +99,7 @@ export default function About() {
               {[
                 { icon: GraduationCap, label: 'University', value: 'IIUI — Software Engineering' },
                 { icon: MapPin,        label: 'Location',   value: 'Islamabad, Pakistan' },
-                { icon: Calendar,      label: 'Status',     value: '4th Semester Student' },
+                { icon: Calendar,      label: 'Status',     value: '5th Semester Student' },
                 { icon: Code,          label: 'Focus',      value: 'MERN Stack Development' },
               ].map(({ icon: Icon, label, value }) => (
                 <motion.div

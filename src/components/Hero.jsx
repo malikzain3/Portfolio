@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Mail, Download, GitBranch, Link, ExternalLink } from 'lucide-react';
+import { ArrowDown, Mail, Download, GitBranch, Link } from 'lucide-react';
 import profileImg from '../assets/profile.png';
+import gsap from 'gsap';
 
 const GITHUB   = 'https://github.com/malikzain3';
 const LINKEDIN = 'https://www.linkedin.com/in/muhammad-zain-ul-abdin-7a5868386';
@@ -40,19 +42,51 @@ const imageVariant = {
   },
 };
 
-// ── Floating badge entrance ──
-const badgeLeft = {
-  hidden:  { opacity: 0, x: -28, scale: 0.85 },
-  visible: { opacity: 1, x: 0,   scale: 1,
-    transition: { delay: 1.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
-};
-const badgeRight = {
-  hidden:  { opacity: 0, x: 28, scale: 0.85 },
-  visible: { opacity: 1, x: 0,  scale: 1,
-    transition: { delay: 1.3, duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
-};
 
 export default function Hero() {
+  const profileContainerRef = useRef(null);
+
+  useEffect(() => {
+    const container = profileContainerRef.current;
+    if (!container) return;
+
+    const handleMouseMove = (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      const rotateX = -(y / (rect.height / 2)) * 15; // max 15 degrees
+      const rotateY = (x / (rect.width / 2)) * 15;
+
+      gsap.to(container, {
+        rotateX: rotateX,
+        rotateY: rotateY,
+        transformPerspective: 1000,
+        scale: 1.05,
+        ease: 'power2.out',
+        duration: 0.3,
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(container, {
+        rotateX: 0,
+        rotateY: 0,
+        scale: 1,
+        ease: 'power2.out',
+        duration: 0.5,
+      });
+    };
+
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   return (
     <section
       id="hero"
@@ -118,7 +152,7 @@ export default function Hero() {
             >
               Aspiring <span className="text-purple-500 font-semibold">MERN Stack Developer</span> passionate about
               building beautiful, performant web experiences. Currently in my{' '}
-              <span className="text-indigo-500 font-semibold">4th Semester</span> at{' '}
+              <span className="text-indigo-500 font-semibold">5th Semester</span> at{' '}
               <span className="text-indigo-500 font-semibold">IIUI</span>.
             </motion.p>
 
@@ -186,14 +220,18 @@ export default function Hero() {
             animate="visible"
             className="flex-shrink-0 relative"
           >
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+            <div
+              ref={profileContainerRef}
+              className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 cursor-pointer"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
               {/* Animated gradient ring */}
-              <div className="absolute inset-0 rounded-full animated-border p-1">
+              <div className="absolute inset-0 rounded-full animated-border p-1" style={{ transform: 'translateZ(20px)' }}>
                 <div className="w-full h-full rounded-full bg-white dark:bg-gray-950" />
               </div>
 
               {/* Photo */}
-              <div className="absolute inset-2 rounded-full overflow-hidden float-animation">
+              <div className="absolute inset-2 rounded-full overflow-hidden float-animation" style={{ transform: 'translateZ(40px)' }}>
                 <img
                   src={profileImg}
                   alt="Muhammad Zain ul Abdin"
@@ -206,30 +244,8 @@ export default function Hero() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
                 className="absolute -inset-4 rounded-full border border-dashed border-indigo-300/30 dark:border-indigo-500/20"
+                style={{ transform: 'translateZ(-10px)' }}
               />
-
-              {/* Floating badge — left */}
-              {/* <motion.div
-                variants={badgeLeft}
-                initial="hidden"
-                animate="visible"
-                whileHover={{ scale: 1.05 }}
-                className="absolute -left-8 top-1/4 bg-white dark:bg-gray-900 rounded-xl px-3 py-2 shadow-xl border border-gray-100 dark:border-gray-800 flex items-center gap-2"
-              >
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">Open to work</span>
-              </motion.div> */}
-
-              {/* Floating badge — right */}
-              {/* <motion.div
-                variants={badgeRight}
-                initial="hidden"
-                animate="visible"
-                whileHover={{ scale: 1.05 }}
-                className="absolute -right-6 bottom-1/4 bg-white dark:bg-gray-900 rounded-xl px-3 py-2 shadow-xl border border-gray-100 dark:border-gray-800"
-              >
-                <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">⚡ MERN Stack</span>
-              </motion.div> */}
             </div>
           </motion.div>
         </div>

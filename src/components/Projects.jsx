@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { ExternalLink, Globe, ArrowUpRight } from 'lucide-react';
+import gsap from 'gsap';
 
 // ── Header ──
 const headerStagger = {
@@ -58,6 +59,144 @@ const projects = [
     category:    'Web App',
   },
 ];
+
+function ProjectCard({ project, cardVariant }) {
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const handleMouseMove = (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      const rotateX = -(y / (rect.height / 2)) * 8; // subtle 8 degrees
+      const rotateY = (x / (rect.width / 2)) * 8;
+
+      gsap.to(card, {
+        rotateX: rotateX,
+        rotateY: rotateY,
+        transformPerspective: 800,
+        ease: 'power2.out',
+        duration: 0.3,
+        overwrite: 'auto'
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(card, {
+        rotateX: 0,
+        rotateY: 0,
+        ease: 'power2.out',
+        duration: 0.5,
+        overwrite: 'auto'
+      });
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      variants={cardVariant}
+      whileHover={{
+        scale: 1.03,
+        y: -5,
+        transition: { type: 'spring', stiffness: 260, damping: 18 },
+      }}
+      className="group relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 overflow-hidden cursor-pointer"
+      style={{
+        boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+        transformStyle: 'preserve-3d'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = `0 24px 64px ${project.glowColor}, 0 4px 24px rgba(0,0,0,0.1)`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06)';
+      }}
+    >
+      {/* Thumbnail */}
+      <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-100 dark:bg-gray-800" style={{ transform: 'translateZ(15px)' }}>
+        <img
+          src={project.image}
+          alt={`${project.title} screenshot`}
+          className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+
+        {/* Live badge */}
+        <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          <span className="text-white text-xs font-semibold">Live</span>
+        </div>
+
+        {/* Category */}
+        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
+          <span className="text-white/90 text-xs font-medium">{project.category}</span>
+        </div>
+
+        {/* Hover overlay */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+          className="absolute inset-0 flex items-center justify-center bg-black/20"
+        >
+          <div className={`flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${project.gradient} text-white font-semibold text-sm shadow-xl`}>
+            <Globe size={15} />
+            View Live
+            <ArrowUpRight size={14} />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-col flex-1 p-6 sm:p-7" style={{ transform: 'translateZ(25px)' }}>
+        <h3 className="text-xl font-black text-gray-900 dark:text-white mb-2 group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-200">
+          {project.title}
+        </h3>
+        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5 flex-1">
+          {project.description}
+        </p>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold border ${project.badgeBg} ${project.badgeText} ${project.badgeBorder}`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <motion.a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.03, y: -1 }}
+          whileTap={{ scale: 0.97 }}
+          className={`inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-gradient-to-r ${project.gradient} text-white font-semibold text-sm shadow-lg transition-shadow duration-300 hover:shadow-xl`}
+        >
+          <Globe size={15} />
+          View Live
+          <ExternalLink size={13} className="opacity-75" />
+        </motion.a>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Projects() {
   const ref = useRef(null);
@@ -116,94 +255,7 @@ export default function Projects() {
           className="grid md:grid-cols-2 gap-8 lg:gap-10"
         >
           {projects.map((project) => (
-            <motion.div
-              key={project.title}
-              variants={cardVariant}
-              // ── Hover: scale 1.05 + dynamic glow shadow ──
-              whileHover={{
-                scale: 1.05,
-                y: -8,
-                transition: { type: 'spring', stiffness: 260, damping: 18 },
-              }}
-              className="group relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 overflow-hidden"
-              style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = `0 24px 64px ${project.glowColor}, 0 4px 24px rgba(0,0,0,0.1)`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06)';
-              }}
-            >
-              {/* Thumbnail */}
-              <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-100 dark:bg-gray-800">
-                <img
-                  src={project.image}
-                  alt={`${project.title} screenshot`}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
-                {/* Live badge */}
-                <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-white text-xs font-semibold">Live</span>
-                </div>
-
-                {/* Category */}
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
-                  <span className="text-white/90 text-xs font-medium">{project.category}</span>
-                </div>
-
-                {/* Hover overlay */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  className="absolute inset-0 flex items-center justify-center bg-black/20"
-                >
-                  <div className={`flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${project.gradient} text-white font-semibold text-sm shadow-xl`}>
-                    <Globe size={15} />
-                    View Live
-                    <ArrowUpRight size={14} />
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Body */}
-              <div className="flex flex-col flex-1 p-6 sm:p-7">
-                <h3 className="text-xl font-black text-gray-900 dark:text-white mb-2 group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-200">
-                  {project.title}
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5 flex-1">
-                  {project.description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold border ${project.badgeBg} ${project.badgeText} ${project.badgeBorder}`}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* CTA */}
-                <motion.a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.03, y: -1 }}
-                  whileTap={{ scale: 0.97 }}
-                  className={`inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-gradient-to-r ${project.gradient} text-white font-semibold text-sm shadow-lg transition-shadow duration-300 hover:shadow-xl`}
-                >
-                  <Globe size={15} />
-                  View Live
-                  <ExternalLink size={13} className="opacity-75" />
-                </motion.a>
-              </div>
-            </motion.div>
+            <ProjectCard key={project.title} project={project} cardVariant={cardVariant} />
           ))}
         </motion.div>
 

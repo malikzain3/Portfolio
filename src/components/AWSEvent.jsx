@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Cloud, Users, Lightbulb, Award, MapPin, Calendar, Star, Zap, Globe } from 'lucide-react';
+import { Cloud, Users, Lightbulb, Award, MapPin, Star, Globe } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -180,7 +180,7 @@ export default function AWSEvent() {
             Sessions Attended
           </motion.h3>
           <div className="grid sm:grid-cols-2 gap-4">
-            {sessions.map((session, i) => (
+            {sessions.map((session) => (
               <motion.div
                 key={session.title}
                 variants={fadeUp}
