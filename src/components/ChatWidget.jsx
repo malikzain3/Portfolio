@@ -109,7 +109,7 @@ His academic experience at IIUI has provided him with a strong foundation in com
 *What would you like to know next?*
 • Ask about his **tech stack** or specific skills like **React** or **Angular**.
 • Ask about his **work experience** at SENSE IIUI and Taqsoft.
-• Ask about his featured **projects** like Al-Hashmi Ambulance or Jump App.`;
+• Ask about his featured **projects** like Belle's Pantry, Al-Hashmi Ambulance, or Jump App.`;
     }
 
     // 2. Skill Specific Explanations (React, Node.js, Angular, C++, HTML/CSS, Tailwind)
@@ -238,8 +238,13 @@ Git, GitHub, VS Code, REST APIs, MongoDB, Express.js, Figma, Responsive Web Desi
     }
 
     // 4. Projects
-    if (matchesAny(['project', 'built', 'portfolio', 'app', 'al-hashmi', 'ambulance', 'jump', 'work-sample', 'showcase'])) {
+    if (matchesAny(['project', 'built', 'portfolio', 'app', 'belle', 'pantry', 'al-hashmi', 'ambulance', 'jump', 'work-sample', 'showcase'])) {
       return `Zain has designed and deployed high-performance, real-world web projects:
+
+🍲 **Belle's Pantry**
+• A Southern gourmet catering website for Belle's Pantry based in Lafayette, Louisiana, offering scratch-made Southern comfort food, catering services, and gourmet gifts.
+• **Built with:** React, Tailwind CSS, Vercel, Responsive Design.
+• [View Live Website](https://belles-pantry-semi.vercel.app/)
 
 🚨 **Al-Hashmi Ambulance**
 • A professional web presence for a healthcare emergency platform designed to provide quick access to medical transport.
@@ -325,7 +330,7 @@ He is highly passionate about building clean, responsive, and user-friendly web 
 *What would you like to see?*
 • Ask about his **education** at **IIUI**.
 • Ask about his **experience** at SENSE IIUI and Taqsoft.
-• Ask about his **projects** like Jump App or Al-Hashmi Ambulance.`;
+• Ask about his **projects** like Belle's Pantry, Jump App, or Al-Hashmi Ambulance.`;
     }
 
     // 10. Fallback
@@ -334,7 +339,7 @@ He is highly passionate about building clean, responsive, and user-friendly web 
 But here is what I can tell you about Zain:
 • **Education:** BS Software Engineering (5th Semester) at IIUI.
 • **Skills:** React, JavaScript, Angular, Tailwind CSS, Bootstrap, Node.js (20%), C++ (50%).
-• **Projects:** Al-Hashmi Ambulance, Jump App.
+• **Projects:** Belle's Pantry, Al-Hashmi Ambulance, Jump App.
 • **Experience:** Web Developer at SENSE IIUI, former intern at Taqsoft.
 • **Contact:** Email, LinkedIn, GitHub.
 

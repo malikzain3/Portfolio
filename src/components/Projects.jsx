@@ -33,6 +33,19 @@ const cardVariant = {
 
 const projects = [
   {
+    title:       "Belle's Pantry",
+    description: 'A Southern gourmet catering website based in Lafayette, Louisiana. Features scratch-made Southern comfort food, catering services, and gourmet pantry gifts geared toward family gatherings and full-scale weddings.',
+    link:        'https://belles-pantry-semi.vercel.app/',
+    image:       '/bellespantry.png',
+    tags:        ['React', 'Tailwind CSS', 'Vercel', 'Responsive Design'],
+    gradient:    'from-amber-600 to-orange-600',
+    glowColor:   'rgba(217,119,6,0.35)',
+    badgeBg:     'bg-amber-50 dark:bg-amber-500/10',
+    badgeText:   'text-amber-600 dark:text-amber-400',
+    badgeBorder: 'border-amber-200 dark:border-amber-500/30',
+    category:    'Catering & Food',
+  },
+  {
     title:       'Al-Hashmi Ambulance',
     description: 'A professional web presence for Al-Hashmi Ambulance Service — a healthcare emergency platform built to provide quick access to ambulance services across the region. Features a clean, responsive layout with service information and contact details.',
     link:        'http://alhashmiambulance.fwh.is',
