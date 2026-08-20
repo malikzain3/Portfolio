@@ -238,8 +238,14 @@ Git, GitHub, VS Code, REST APIs, MongoDB, Express.js, Figma, Responsive Web Desi
     }
 
     // 4. Projects
-    if (matchesAny(['project', 'built', 'portfolio', 'app', 'al-hashmi', 'ambulance', 'jump', 'work-sample', 'showcase'])) {
+    if (matchesAny(['project', 'built', 'portfolio', 'app', 'al-hashmi', 'ambulance', 'jump', 'belle', 'pantry', 'catering', 'work-sample', 'showcase'])) {
       return `Zain has designed and deployed high-performance, real-world web projects:
+
+🍲 **Belle's Pantry**
+• A Southern gourmet catering business & pantry platform based in Lafayette, Louisiana offering scratch-made Southern comfort food, event catering, and gourmet gifts.
+• **Built with:** React, Tailwind CSS, JavaScript, Responsive Design.
+• Features quote requests, catering menus, and elegant dark gourmet styling.
+• [View Live Website](https://belles-pantry-semi.vercel.app/)
 
 🚨 **Al-Hashmi Ambulance**
 • A professional web presence for a healthcare emergency platform designed to provide quick access to medical transport.
@@ -334,7 +340,7 @@ He is highly passionate about building clean, responsive, and user-friendly web 
 But here is what I can tell you about Zain:
 • **Education:** BS Software Engineering (5th Semester) at IIUI.
 • **Skills:** React, JavaScript, Angular, Tailwind CSS, Bootstrap, Node.js (20%), C++ (50%).
-• **Projects:** Al-Hashmi Ambulance, Jump App.
+• **Projects:** Belle's Pantry, Al-Hashmi Ambulance, Jump App.
 • **Experience:** Web Developer at SENSE IIUI, former intern at Taqsoft.
 • **Contact:** Email, LinkedIn, GitHub.
 

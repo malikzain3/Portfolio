@@ -33,6 +33,19 @@ const cardVariant = {
 
 const projects = [
   {
+    title:       'Belle\'s Pantry',
+    description: 'A gourmet Southern catering and pantry platform based in Lafayette, Louisiana. Features scratch-made Southern comfort food, catering services for events and weddings, quote requests, and gourmet gift options with a refined user experience.',
+    link:        'https://belles-pantry-semi.vercel.app/',
+    image:       '/belles-pantry.png',
+    tags:        ['React', 'Tailwind CSS', 'JavaScript', 'Responsive Design'],
+    gradient:    'from-amber-600 to-orange-600',
+    glowColor:   'rgba(217,119,6,0.35)',
+    badgeBg:     'bg-amber-50 dark:bg-amber-500/10',
+    badgeText:   'text-amber-600 dark:text-amber-400',
+    badgeBorder: 'border-amber-200 dark:border-amber-500/30',
+    category:    'Catering & E-Commerce',
+  },
+  {
     title:       'Al-Hashmi Ambulance',
     description: 'A professional web presence for Al-Hashmi Ambulance Service — a healthcare emergency platform built to provide quick access to ambulance services across the region. Features a clean, responsive layout with service information and contact details.',
     link:        'http://alhashmiambulance.fwh.is',
@@ -255,7 +268,7 @@ export default function Projects() {
           variants={cardGrid}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid md:grid-cols-2 gap-8 lg:gap-10"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
         >
           {projects.map((project) => (
             <ProjectCard key={project.title} project={project} cardVariant={cardVariant} />
