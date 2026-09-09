@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { ExternalLink, Globe, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, Globe, ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 
-// ── Header ──
+// ── Header Animations ──
 const headerStagger = {
   hidden:  {},
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
@@ -15,23 +15,21 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
 };
 
-// ── Cards: stagger sequentially ──
-const cardGrid = {
-  hidden:  {},
-  visible: { transition: { staggerChildren: 0.2, delayChildren: 0.25 } },
-};
-
-const cardVariant = {
-  hidden:  { opacity: 0, y: 50, scale: 0.94 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 const projects = [
+  {
+    title:       'Schoolix',
+    description: 'An enterprise-level AI-powered school management system built to streamline educational operations. Features attendance tracking, fee management, examinations, teacher portals, and automated workflows in one clean, reliable platform.',
+    link:        'https://schoolix.tech',
+    image:       '/schoolix.png',
+    tags:        ['React', 'Firebase', 'n8n', 'Tailwind CSS', 'AI Workflows'],
+    gradient:    'from-blue-600 via-indigo-600 to-purple-600',
+    glowColor:   'rgba(79,70,229,0.35)',
+    badgeBg:     'bg-blue-50 dark:bg-blue-500/10',
+    badgeText:   'text-blue-600 dark:text-blue-400',
+    badgeBorder: 'border-blue-200 dark:border-blue-500/30',
+    category:    'Enterprise SaaS',
+    featured:    true,
+  },
   {
     title:       'Belle\'s Pantry',
     description: 'A gourmet Southern catering and pantry platform based in Lafayette, Louisiana. Features scratch-made Southern comfort food, catering services for events and weddings, quote requests, and gourmet gift options with a refined user experience.',
@@ -73,7 +71,29 @@ const projects = [
   },
 ];
 
-function ProjectCard({ project, cardVariant }) {
+function useVisibleCards() {
+  const [visibleCards, setVisibleCards] = useState(3);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setVisibleCards(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCards(2);
+      } else {
+        setVisibleCards(3);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return visibleCards;
+}
+
+function ProjectCard({ project }) {
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -85,7 +105,7 @@ function ProjectCard({ project, cardVariant }) {
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
 
-      const rotateX = -(y / (rect.height / 2)) * 8; // subtle 8 degrees
+      const rotateX = -(y / (rect.height / 2)) * 8;
       const rotateY = (x / (rect.width / 2)) * 8;
 
       gsap.to(card, {
@@ -94,7 +114,7 @@ function ProjectCard({ project, cardVariant }) {
         transformPerspective: 800,
         ease: 'power2.out',
         duration: 0.3,
-        overwrite: 'auto'
+        overwrite: 'auto',
       });
     };
 
@@ -104,7 +124,7 @@ function ProjectCard({ project, cardVariant }) {
         rotateY: 0,
         ease: 'power2.out',
         duration: 0.5,
-        overwrite: 'auto'
+        overwrite: 'auto',
       });
     };
 
@@ -120,16 +140,15 @@ function ProjectCard({ project, cardVariant }) {
   return (
     <motion.div
       ref={cardRef}
-      variants={cardVariant}
       whileHover={{
-        scale: 1.03,
+        scale: 1.02,
         y: -5,
         transition: { type: 'spring', stiffness: 260, damping: 18 },
       }}
-      className="group relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 overflow-hidden cursor-pointer"
+      className="group relative flex flex-col h-full bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 overflow-hidden cursor-pointer"
       style={{
         boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-        transformStyle: 'preserve-3d'
+        transformStyle: 'preserve-3d',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.boxShadow = `0 24px 64px ${project.glowColor}, 0 4px 24px rgba(0,0,0,0.1)`;
@@ -153,25 +172,33 @@ function ProjectCard({ project, cardVariant }) {
           <span className="text-white text-xs font-semibold">Live</span>
         </div>
 
-        {/* Category */}
-        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
-          <span className="text-white/90 text-xs font-medium">{project.category}</span>
+        {/* Category & Featured Badge */}
+        <div className="absolute top-3 left-3 flex items-center gap-2">
+          <div className="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
+            <span className="text-white/90 text-xs font-medium">{project.category}</span>
+          </div>
+          {project.featured && (
+            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/90 text-white text-xs font-bold backdrop-blur-md shadow-md">
+              <Sparkles size={12} className="animate-spin" style={{ animationDuration: '4s' }} />
+              Enterprise
+            </div>
+          )}
         </div>
 
         {/* Hover overlay */}
         <motion.div
           initial={{ opacity: 0 }}
           whileHover={{ opacity: 1 }}
-          className="absolute inset-0 flex items-center justify-center bg-black/20"
+          className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[2px] transition-opacity duration-300"
         >
-         <a 
-    href={project.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${project.gradient} text-white font-semibold text-sm shadow-xl transition-transform hover:scale-105 active:scale-95`}
-  >
-    <Globe size={15} /> View Live <ArrowUpRight size={14} />
-  </a>
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${project.gradient} text-white font-semibold text-sm shadow-xl transition-transform hover:scale-105 active:scale-95`}
+          >
+            <Globe size={15} /> View Live <ArrowUpRight size={14} />
+          </a>
         </motion.div>
       </div>
 
@@ -217,6 +244,38 @@ function ProjectCard({ project, cardVariant }) {
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const visibleCards = useVisibleCards();
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const maxIndex = Math.max(0, projects.length - visibleCards);
+  const safeIndex = Math.min(currentIndex, maxIndex);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => {
+      const currentSafe = Math.min(prev, maxIndex);
+      return currentSafe >= maxIndex ? 0 : currentSafe + 1;
+    });
+  }, [maxIndex]);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => {
+      const currentSafe = Math.min(prev, maxIndex);
+      return currentSafe <= 0 ? maxIndex : currentSafe - 1;
+    });
+  }, [maxIndex]);
+
+  // Auto slide timer
+  useEffect(() => {
+    if (!isPlaying || isHovered) return;
+    const interval = setInterval(() => {
+      handleNext();
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, isHovered, handleNext]);
 
   return (
     <section
@@ -246,7 +305,7 @@ export default function Projects() {
           variants={headerStagger}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <motion.p variants={fadeUp} className="text-orange-500 dark:text-orange-400 font-semibold text-sm tracking-widest uppercase mb-3">
             What I've built
@@ -259,42 +318,119 @@ export default function Projects() {
           </motion.h2>
           <motion.div variants={fadeUp} className="w-16 h-1 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full mx-auto mb-4" />
           <motion.p variants={fadeUp} className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-            Real-world projects I've designed, built, and shipped
+            Real-world enterprise applications & custom solutions I've designed, built, and shipped
           </motion.p>
         </motion.div>
 
-        {/* ── Cards — stagger in sequentially ── */}
-        <motion.div
-          variants={cardGrid}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
-        >
-          {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} cardVariant={cardVariant} />
-          ))}
-        </motion.div>
-
-        {/* GitHub CTA */}
+        {/* ── Project Slider Controls Header ── */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="text-center mt-14"
+          className="flex items-center justify-between mb-8 px-2"
         >
-          <p className="text-gray-400 dark:text-gray-500 text-sm mb-4">More projects on my GitHub</p>
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-orange-500/10 text-orange-500 dark:text-orange-400 border border-orange-500/20">
+              Interactive Slider
+            </span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 hidden sm:inline-block">
+              Project {safeIndex + 1} - {Math.min(safeIndex + visibleCards, projects.length)} of {projects.length}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {/* Auto Play / Pause Toggle */}
+            <button
+              onClick={() => setIsPlaying((prev) => !prev)}
+              title={isPlaying ? 'Pause auto-slide' : 'Play auto-slide'}
+              className="p-2.5 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 hover:border-orange-400 transition-colors duration-200 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md"
+            >
+              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
+            </button>
+
+            {/* Prev Button */}
+            <button
+              onClick={handlePrev}
+              aria-label="Previous Project"
+              className="p-2.5 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 hover:border-orange-400 transition-all duration-200 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md hover:scale-105 active:scale-95"
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={handleNext}
+              aria-label="Next Project"
+              className="p-2.5 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 hover:border-orange-400 transition-all duration-200 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md hover:scale-105 active:scale-95"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </motion.div>
+
+        {/* ── Slider Viewport & Cards Track ── */}
+        <div
+          className="relative overflow-hidden py-4 px-1"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <motion.div
+            className="flex gap-6 sm:gap-8"
+            animate={{
+              x: `calc(-${safeIndex * (100 / visibleCards)}% - ${safeIndex * (visibleCards === 1 ? 0 : visibleCards === 2 ? 12 : 16)}px)`,
+            }}
+            transition={{ type: 'spring', stiffness: 220, damping: 28 }}
+          >
+            {projects.map((project) => (
+              <div
+                key={project.title}
+                className="flex-shrink-0"
+                style={{
+                  width:
+                    visibleCards === 1
+                      ? '100%'
+                      : visibleCards === 2
+                      ? 'calc(50% - 12px)'
+                      : 'calc(33.333% - 16px)',
+                }}
+              >
+                <ProjectCard project={project} />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* ── Pagination Dots & Status ── */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 px-2">
+          {/* Slide dots */}
+          <div className="flex items-center gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  safeIndex === idx
+                    ? 'w-8 bg-gradient-to-r from-orange-400 to-yellow-400'
+                    : 'w-2.5 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* GitHub CTA */}
           <motion.a
             href="https://github.com/malikzain3"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.06, y: -2 }}
+            whileHover={{ scale: 1.05, y: -1 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-sm font-medium hover:border-orange-400 dark:hover:border-orange-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 text-xs font-semibold hover:border-orange-400 dark:hover:border-orange-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200 bg-white/50 dark:bg-gray-900/50"
           >
-            <ExternalLink size={14} />
-            View GitHub Profile
+            <ExternalLink size={13} />
+            View all on GitHub
           </motion.a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
