@@ -1,8 +1,7 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { ExternalLink, Globe, ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play, Sparkles } from 'lucide-react';
-import gsap from 'gsap';
+import { ExternalLink, Globe, ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 
 // ── Header Animations ──
 const headerStagger = {
@@ -27,7 +26,7 @@ const projects = [
     badgeBg:     'bg-blue-50 dark:bg-blue-500/10',
     badgeText:   'text-blue-600 dark:text-blue-400',
     badgeBorder: 'border-blue-200 dark:border-blue-500/30',
-    category:    'Enterprise SaaS',
+    category:    'SaaS',
     featured:    true,
   },
   {
@@ -94,52 +93,8 @@ function useVisibleCards() {
 }
 
 function ProjectCard({ project }) {
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const handleMouseMove = (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      const rotateX = -(y / (rect.height / 2)) * 8;
-      const rotateY = (x / (rect.width / 2)) * 8;
-
-      gsap.to(card, {
-        rotateX: rotateX,
-        rotateY: rotateY,
-        transformPerspective: 800,
-        ease: 'power2.out',
-        duration: 0.3,
-        overwrite: 'auto',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(card, {
-        rotateX: 0,
-        rotateY: 0,
-        ease: 'power2.out',
-        duration: 0.5,
-        overwrite: 'auto',
-      });
-    };
-
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
-
   return (
     <motion.div
-      ref={cardRef}
       whileHover={{
         scale: 1.02,
         y: -5,
@@ -148,7 +103,6 @@ function ProjectCard({ project }) {
       className="group relative flex flex-col h-full bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 overflow-hidden cursor-pointer"
       style={{
         boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-        transformStyle: 'preserve-3d',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.boxShadow = `0 24px 64px ${project.glowColor}, 0 4px 24px rgba(0,0,0,0.1)`;
@@ -158,7 +112,7 @@ function ProjectCard({ project }) {
       }}
     >
       {/* Thumbnail */}
-      <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-100 dark:bg-gray-800" style={{ transform: 'translateZ(15px)' }}>
+      <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-100 dark:bg-gray-800">
         <img
           src={project.image}
           alt={`${project.title} screenshot`}
@@ -172,17 +126,11 @@ function ProjectCard({ project }) {
           <span className="text-white text-xs font-semibold">Live</span>
         </div>
 
-        {/* Category & Featured Badge */}
+        {/* Category Badge */}
         <div className="absolute top-3 left-3 flex items-center gap-2">
           <div className="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
             <span className="text-white/90 text-xs font-medium">{project.category}</span>
           </div>
-          {project.featured && (
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/90 text-white text-xs font-bold backdrop-blur-md shadow-md">
-              <Sparkles size={12} className="animate-spin" style={{ animationDuration: '4s' }} />
-              Enterprise
-            </div>
-          )}
         </div>
 
         {/* Hover overlay */}
@@ -203,7 +151,7 @@ function ProjectCard({ project }) {
       </div>
 
       {/* Body */}
-      <div className="flex flex-col flex-1 p-6 sm:p-7" style={{ transform: 'translateZ(25px)' }}>
+      <div className="flex flex-col flex-1 p-6 sm:p-7">
         <h3 className="text-xl font-black text-gray-900 dark:text-white mb-2 group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-200">
           {project.title}
         </h3>
@@ -330,10 +278,7 @@ export default function Projects() {
           className="flex items-center justify-between mb-8 px-2"
         >
           <div className="flex items-center gap-3">
-            <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-orange-500/10 text-orange-500 dark:text-orange-400 border border-orange-500/20">
-              Interactive Slider
-            </span>
-            <span className="text-xs text-gray-400 dark:text-gray-500 hidden sm:inline-block">
+            <span className="text-xs text-gray-400 dark:text-gray-500 sm:inline-block font-medium">
               Project {safeIndex + 1} - {Math.min(safeIndex + visibleCards, projects.length)} of {projects.length}
             </span>
           </div>
