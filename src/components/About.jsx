@@ -77,15 +77,14 @@ export default function About() {
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Muhammad Zain ul Abdin
               </h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                As the <span className="text-indigo-500 dark:text-indigo-400 font-semibold">Vice President of SENSE IIUI</span> (Software Engineering Society for Excellence at International Islamic University Islamabad), I lead student engineering initiatives, technical workshops, and community events while advancing modern web technology standardizations.
+              </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                Dedicated Frontend Web Developer with hands-on experience in HTML, CSS, JavaScript,
-                Angular, and Bootstrap. I'm passionate about crafting clean, responsive, and
-                user-friendly interfaces that deliver exceptional digital experiences.
+                I specialize in <span className="text-indigo-500 dark:text-indigo-400 font-semibold">React</span>, <span className="text-purple-500 dark:text-purple-400 font-semibold">Tailwind CSS</span>, and software engineering principles, creating high-performance, responsive web applications and clean digital interfaces.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                Currently expanding my expertise into the full MERN stack, I thrive on turning
-                complex problems into elegant solutions. My goal is to bridge the gap between
-                design and functionality.
+                Combining technical software engineering expertise with executive leadership at <span className="text-indigo-500 dark:text-indigo-400 font-semibold">SENSE IIUI</span>, I thrive on bridging software architecture with sleek frontend design.
               </p>
             </motion.div>
 
@@ -97,10 +96,10 @@ export default function About() {
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             >
               {[
-                { icon: GraduationCap, label: 'University', value: 'IIUI — Software Engineering' },
+                { icon: GraduationCap, label: 'Leadership', value: 'Vice President — SENSE IIUI' },
                 { icon: MapPin,        label: 'Location',   value: 'Islamabad, Pakistan' },
-                { icon: Calendar,      label: 'Status',     value: '5th Semester Student' },
-                { icon: Code,          label: 'Focus',      value: 'MERN Stack Development' },
+                { icon: Calendar,      label: 'University', value: 'IIUI — 5th Sem Software Eng' },
+                { icon: Code,          label: 'Stack',      value: 'React, Tailwind CSS, JS' },
               ].map(({ icon: Icon, label, value }) => (
                 <motion.div
                   key={label}

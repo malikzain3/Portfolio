@@ -266,13 +266,13 @@ Git, GitHub, VS Code, REST APIs, MongoDB, Express.js, Figma, Responsive Web Desi
     }
 
     // 5. Work Experience
-    if (matchesAny(['experience', 'work', 'job', 'intern', 'career', 'sense', 'taqsoft', 'history', 'professional', 'part-time'])) {
-      return `Zain has strong professional and community experience in software environments:
+    if (matchesAny(['experience', 'work', 'job', 'intern', 'career', 'sense', 'taqsoft', 'history', 'professional', 'part-time', 'leadership', 'vice president', 'vp'])) {
+      return `Zain has strong professional and community executive experience in software engineering:
 
-💼 **Part-Time Web Developer at SENSE IIUI** (2025 – Present)
-• Contributing to Software Engineering Society (SENSE) official web presence.
-• Building responsive, elegant UI components using **React & Tailwind CSS**.
-• Collaborating with design teams and optimizing web asset performance.
+👑 **Vice President at SENSE IIUI (Software Engineering Society for Excellence)** (2025 – Present)
+• Providing executive leadership, technical direction, and strategic oversight.
+• Leading web development initiatives with **React & Tailwind CSS**.
+• Organizing engineering workshops, hackathons, and software engineering community events.
 
 🏢 **Frontend Developer Intern at Taqsoft** (2025)
 • Developed dynamic client-facing web applications using the **Angular** framework.
@@ -323,25 +323,26 @@ What would you like to explore first?`;
     }
 
     // 9. About Zain / General Info / Biography
-    if (matchesAny(['about', 'who is', 'zain', 'background', 'bio', 'story', 'developer'])) {
-      return `**Muhammad Zain ul Abdin** is a dedicated Frontend Web Developer and a **5th Semester Software Engineering student** at **IIUI** (International Islamic University Islamabad), based in Islamabad, Pakistan.
+    if (matchesAny(['about', 'who is', 'zain', 'background', 'bio', 'story', 'developer', 'vice president', 'president'])) {
+      return `**Muhammad Zain ul Abdin** is the **Vice President of SENSE IIUI** (Software Engineering Society for Excellence at International Islamic University Islamabad) and a 5th Semester Software Engineering student based in Islamabad, Pakistan.
 
-He is highly passionate about building clean, responsive, and user-friendly web interfaces. Currently, he is expanding his stack into full-fledged **MERN Stack Development** (MongoDB, Express, React, Node.js) to bridge the gap between frontend beauty and backend power!
+He combines executive leadership with deep technical expertise in **React**, **Tailwind CSS**, and modern software engineering principles to build performant, user-friendly digital experiences.
 
 *What would you like to see?*
 • Ask about his **education** at **IIUI**.
-• Ask about his **experience** at SENSE IIUI and Taqsoft.
-• Ask about his **projects** like Jump App or Al-Hashmi Ambulance.`;
+• Ask about his **leadership experience** as Vice President at SENSE IIUI and internship at Taqsoft.
+• Ask about his **projects** like Schoolix, Belle's Pantry, or Jump App.`;
     }
 
     // 10. Fallback
     return `I'm not sure I fully understand that question. 😅
 
 But here is what I can tell you about Zain:
+• **Leadership:** Vice President at SENSE IIUI (Software Engineering Society for Excellence).
 • **Education:** BS Software Engineering (5th Semester) at IIUI.
-• **Skills:** React, JavaScript, Angular, Tailwind CSS, Bootstrap, Node.js (20%), C++ (50%).
-• **Projects:** Belle's Pantry, Al-Hashmi Ambulance, Jump App.
-• **Experience:** Web Developer at SENSE IIUI, former intern at Taqsoft.
+• **Skills:** React, Tailwind CSS, JavaScript, Angular, Bootstrap, Software Engineering.
+• **Projects:** Schoolix, Belle's Pantry, Al-Hashmi Ambulance, Jump App.
+• **Experience:** VP at SENSE IIUI, former intern at Taqsoft.
 • **Contact:** Email, LinkedIn, GitHub.
 
 Feel free to ask a specific question, or click one of the quick suggestions below! 👇`;
