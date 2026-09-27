@@ -15,23 +15,23 @@ const stagger = {
 
 const experiences = [
   {
-    role: 'Web Developer',
-    company: 'SENSE IIUI',
-    type: 'Part-time',
+    role: 'Vice President',
+    company: 'SENSE IIUI (Software Engineering Society for Excellence)',
+    type: 'Executive Leadership',
     period: '2025 – Present',
     location: 'Islamabad, Pakistan',
     color: 'from-indigo-500 to-purple-600',
     accent: 'indigo',
     description:
-      'Working as a web developer at the Software Engineering Society (SENSE) at IIUI, contributing to the development and maintenance of society web platforms and digital presence.',
+      'Serving as Vice President of SENSE IIUI, providing strategic direction, executive leadership, and technical oversight for society projects, hackathons, and web platforms.',
     responsibilities: [
-      'Developed and maintained the SENSE IIUI official website',
-      'Built responsive UI components using React and Tailwind CSS',
-      'Collaborated with design team to implement pixel-perfect interfaces',
-      'Optimized web performance and improved page load times',
-      'Managed content updates and feature enhancements',
+      'Lead executive operations and strategic direction for SENSE IIUI',
+      'Oversee technical teams building web applications using React and Tailwind CSS',
+      'Organize engineering workshops, coding competitions, and society tech initiatives',
+      'Mentor student developers in software engineering best practices and modern frontend development',
+      'Direct society digital presence and web platform strategy',
     ],
-    tech: ['React', 'Tailwind CSS', 'JavaScript', 'HTML/CSS'],
+    tech: ['Leadership', 'React', 'Tailwind CSS', 'Software Engineering', 'JavaScript'],
   },
   {
     role: 'Frontend Web Developer',

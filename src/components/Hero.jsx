@@ -139,10 +139,10 @@ export default function Hero() {
               <span className="text-gray-900 dark:text-white"> ul Abdin</span>
             </motion.h1>
 
-            {/* Title */}
+            {/* Title / Role */}
             <motion.p variants={slideUp} className="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
-              Software Engineering Student &amp;{' '}
-              <span className="text-indigo-500 dark:text-indigo-400">Frontend Developer</span>
+              <span className="text-indigo-500 dark:text-indigo-400 font-bold">Vice President</span> at{' '}
+              <span className="text-purple-500 dark:text-purple-400 font-bold">SENSE IIUI</span> | Software Engineering &amp; Frontend Specialist
             </motion.p>
 
             {/* Subtitle */}
@@ -150,8 +150,10 @@ export default function Hero() {
               variants={slideUp}
               className="text-base sm:text-lg text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
             >
-              Aspiring <span className="text-purple-500 font-semibold">MERN Stack Developer</span> passionate about
-              building beautiful, performant web experiences. Currently in my{' '}
+              Executive leader driving innovation at the{' '}
+              <span className="text-indigo-500 dark:text-indigo-400 font-semibold">Software Engineering Society (SENSE)</span> at International Islamic University Islamabad.
+              Specializing in <span className="text-indigo-500 dark:text-indigo-400 font-semibold">React</span>,{' '}
+              <span className="text-purple-500 dark:text-purple-400 font-semibold">Tailwind CSS</span>, and modern web application development. Currently in my{' '}
               <span className="text-indigo-500 font-semibold">5th Semester</span> at{' '}
               <span className="text-indigo-500 font-semibold">IIUI</span>.
             </motion.p>
