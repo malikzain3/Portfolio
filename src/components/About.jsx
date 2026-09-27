@@ -78,7 +78,7 @@ export default function About() {
                 Muhammad Zain ul Abdin
               </h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                As the <span className="text-indigo-500 dark:text-indigo-400 font-semibold">Vice President of SENSE IIUI</span> (Software Engineering Society for Excellence at International Islamic University Islamabad), I lead student engineering initiatives, technical workshops, and community events while advancing modern web technology standardizations.
+                As the <span className="text-indigo-500 dark:text-indigo-400 font-semibold">Vice President of SENSE IIUI</span> (Software Engineering Society for Excellence at International Islamic University Islamabad), I lead society operations, strategic planning, national hackathons, and technical community events.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                 I specialize in <span className="text-indigo-500 dark:text-indigo-400 font-semibold">React</span>, <span className="text-purple-500 dark:text-purple-400 font-semibold">Tailwind CSS</span>, and software engineering principles, creating high-performance, responsive web applications and clean digital interfaces.
