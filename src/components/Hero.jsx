@@ -141,8 +141,9 @@ export default function Hero() {
 
             {/* Title / Role */}
             <motion.p variants={slideUp} className="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
-              <span className="text-indigo-500 dark:text-indigo-400 font-bold">Vice President</span> at{' '}
-              <span className="text-purple-500 dark:text-purple-400 font-bold">SENSE IIUI</span> | Software Engineering &amp; Frontend Specialist
+              <span className="text-indigo-500 dark:text-indigo-400 font-bold">Software Engineering Student</span> |{' '}
+              <span className="text-purple-500 dark:text-purple-400 font-bold">Frontend Developer</span> |{' '}
+              <span className="text-pink-500 dark:text-pink-400 font-bold">Vice President SENSE IIUI</span>
             </motion.p>
 
             {/* Subtitle */}

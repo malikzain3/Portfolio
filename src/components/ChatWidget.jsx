@@ -266,13 +266,17 @@ Git, GitHub, VS Code, REST APIs, MongoDB, Express.js, Figma, Responsive Web Desi
     }
 
     // 5. Work Experience
-    if (matchesAny(['experience', 'work', 'job', 'intern', 'career', 'sense', 'taqsoft', 'history', 'professional', 'part-time', 'leadership', 'vice president', 'vp'])) {
+    if (matchesAny(['experience', 'work', 'job', 'intern', 'career', 'sense', 'taqsoft', 'history', 'professional', 'part-time', 'leadership', 'vice president', 'vp', 'volunteer', 'volunteering'])) {
       return `Zain has strong professional and community executive experience in software engineering:
 
-👑 **Vice President at SENSE IIUI (Software Engineering Society for Excellence)** (2025 – Present)
+👑 **Vice President at SENSE IIUI (Software Engineering Society for Excellence)** (Sep 2026 – Present)
 • Providing executive leadership, technical direction, and strategic oversight.
 • Leading web development initiatives with **React & Tailwind CSS**.
 • Organizing engineering workshops, hackathons, and software engineering community events.
+
+🌐 **Web Developer (Volunteer) at SENSE IIUI** (Sep 2025 – Sep 2026)
+• Built the official website and managed all web works for SENSE IIUI.
+• Managed web development operations, deployment, and digital assets.
 
 🏢 **Frontend Developer Intern at Taqsoft** (2025)
 • Developed dynamic client-facing web applications using the **Angular** framework.
@@ -324,13 +328,13 @@ What would you like to explore first?`;
 
     // 9. About Zain / General Info / Biography
     if (matchesAny(['about', 'who is', 'zain', 'background', 'bio', 'story', 'developer', 'vice president', 'president'])) {
-      return `**Muhammad Zain ul Abdin** is the **Vice President of SENSE IIUI** (Software Engineering Society for Excellence at International Islamic University Islamabad) and a 5th Semester Software Engineering student based in Islamabad, Pakistan.
+      return `**Muhammad Zain ul Abdin** is a Software Engineering Student, Frontend Developer, and the **Vice President of SENSE IIUI** (Software Engineering Society for Excellence at International Islamic University Islamabad) based in Islamabad, Pakistan.
 
-He combines executive leadership with deep technical expertise in **React**, **Tailwind CSS**, and modern software engineering principles to build performant, user-friendly digital experiences.
+Prior to his VP role (Sep 2026 – Present), he worked as a **Web Developer Volunteer at SENSE IIUI** (Sep 2025 – Sep 2026) building the society's web applications and managing digital works.
 
 *What would you like to see?*
 • Ask about his **education** at **IIUI**.
-• Ask about his **leadership experience** as Vice President at SENSE IIUI and internship at Taqsoft.
+• Ask about his **leadership experience** at SENSE IIUI and internship at Taqsoft.
 • Ask about his **projects** like Schoolix, Belle's Pantry, or Jump App.`;
     }
 
@@ -338,11 +342,11 @@ He combines executive leadership with deep technical expertise in **React**, **T
     return `I'm not sure I fully understand that question. 😅
 
 But here is what I can tell you about Zain:
-• **Leadership:** Vice President at SENSE IIUI (Software Engineering Society for Excellence).
+• **Role:** Software Engineering Student | Frontend Developer | Vice President SENSE IIUI.
 • **Education:** BS Software Engineering (5th Semester) at IIUI.
 • **Skills:** React, Tailwind CSS, JavaScript, Angular, Bootstrap, Software Engineering.
 • **Projects:** Schoolix, Belle's Pantry, Al-Hashmi Ambulance, Jump App.
-• **Experience:** VP at SENSE IIUI, former intern at Taqsoft.
+• **Experience:** Vice President at SENSE IIUI (Sep 2026 - Present), Web Developer Volunteer at SENSE IIUI (Sep 2025 - Sep 2026), former intern at Taqsoft.
 • **Contact:** Email, LinkedIn, GitHub.
 
 Feel free to ask a specific question, or click one of the quick suggestions below! 👇`;

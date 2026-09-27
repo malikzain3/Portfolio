@@ -18,7 +18,7 @@ const experiences = [
     role: 'Vice President',
     company: 'SENSE IIUI (Software Engineering Society for Excellence)',
     type: 'Executive Leadership',
-    period: '2025 – Present',
+    period: 'Sep 2026 – Present',
     location: 'Islamabad, Pakistan',
     color: 'from-indigo-500 to-purple-600',
     accent: 'indigo',
@@ -32,6 +32,23 @@ const experiences = [
       'Direct society digital presence and web platform strategy',
     ],
     tech: ['Leadership', 'React', 'Tailwind CSS', 'Software Engineering', 'JavaScript'],
+  },
+  {
+    role: 'Web Developer (Volunteer)',
+    company: 'SENSE IIUI (Software Engineering Society for Excellence)',
+    type: 'Volunteering',
+    period: 'Sep 2025 – Sep 2026',
+    location: 'Islamabad, Pakistan',
+    color: 'from-blue-500 to-indigo-600',
+    accent: 'blue',
+    description:
+      'Worked as a Web Developer volunteering at SENSE IIUI where I built the official website and managed all web works for the society.',
+    responsibilities: [
+      'Built and maintained the official website and web platforms for SENSE IIUI',
+      'Managed all web development operations, deployment, and digital assets for society events',
+      'Worked closely with the team to design and release responsive web interfaces for student activities',
+    ],
+    tech: ['React', 'JavaScript', 'Tailwind CSS', 'HTML/CSS', 'Web Management'],
   },
   {
     role: 'Frontend Web Developer',
@@ -97,7 +114,7 @@ export default function Experience() {
           >
             {experiences.map((exp, index) => (
               <motion.div
-                key={exp.company}
+                key={`${exp.company}-${exp.role}`}
                 variants={fadeUp}
                 className={`relative flex flex-col lg:flex-row gap-8 ${
                   index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
