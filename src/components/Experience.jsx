@@ -23,15 +23,15 @@ const experiences = [
     color: 'from-indigo-500 to-purple-600',
     accent: 'indigo',
     description:
-      'Serving as Vice President of SENSE IIUI, providing strategic direction, executive leadership, and technical oversight for society projects, hackathons, and web platforms.',
+      'Serving as Vice President of SENSE IIUI, providing strategic direction, executive leadership, and operational management for society initiatives, hackathons, and community growth.',
     responsibilities: [
-      'Lead executive operations and strategic direction for SENSE IIUI',
-      'Oversee technical teams building web applications using React and Tailwind CSS',
-      'Organize engineering workshops, coding competitions, and society tech initiatives',
-      'Mentor student developers in software engineering best practices and modern frontend development',
-      'Direct society digital presence and web platform strategy',
+      'Lead executive operations, strategic planning, and overall management for SENSE IIUI',
+      'Direct society operations, departmental initiatives, and student leadership teams',
+      'Organize engineering workshops, national hackathons, and technical community events',
+      'Mentor student leads in leadership, project execution, and organizational management',
+      'Spearhead strategic partnerships, society expansion, and community engagement',
     ],
-    tech: ['Leadership', 'React', 'Tailwind CSS', 'Software Engineering', 'JavaScript'],
+    tech: ['Executive Leadership', 'Strategic Planning', 'Event Management', 'Team Oversight', 'Community Building'],
   },
   {
     role: 'Web Developer (Volunteer)',

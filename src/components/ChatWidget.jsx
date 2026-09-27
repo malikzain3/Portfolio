@@ -270,9 +270,9 @@ Git, GitHub, VS Code, REST APIs, MongoDB, Express.js, Figma, Responsive Web Desi
       return `Zain has strong professional and community executive experience in software engineering:
 
 👑 **Vice President at SENSE IIUI (Software Engineering Society for Excellence)** (Sep 2026 – Present)
-• Providing executive leadership, technical direction, and strategic oversight.
-• Leading web development initiatives with **React & Tailwind CSS**.
-• Organizing engineering workshops, hackathons, and software engineering community events.
+• Providing executive leadership, strategic direction, and operational management.
+• Directing society initiatives, departmental operations, and student leadership teams.
+• Organizing engineering workshops, national hackathons, and software engineering community events.
 
 🌐 **Web Developer (Volunteer) at SENSE IIUI** (Sep 2025 – Sep 2026)
 • Built the official website and managed all web works for SENSE IIUI.
